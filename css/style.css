@@ -1,0 +1,22 @@
+body{
+  background-color: black;
+}
+@font-face {
+  font-family: NunitoLight;
+  src: url(fonts/Nunito/Nunito-Regular.ttf);
+}
+
+@font-face {
+  font-family: NunitoBold;
+  src: url(fonts/Nunito/Nunito-ExtraBold.ttf);
+}
+
+@font-face {
+  font-family: fontCode;
+  src: url(fonts/Space_Mono/SpaceMono-Regular.ttf);
+}
+
+nav>div{
+  font-family: NunitoLight;
+  font-size: 18px;
+}
