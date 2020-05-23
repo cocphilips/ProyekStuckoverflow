@@ -1,6 +1,3 @@
-body{
-  background-color: black;
-}
 @font-face {
   font-family: NunitoLight;
   src: url(fonts/Nunito/Nunito-Regular.ttf);
@@ -19,4 +16,29 @@ body{
 nav>div{
   font-family: NunitoLight;
   font-size: 18px;
+}
+
+.text1{
+  font-size: 60px;
+  color: white;
+  margin-bottom: 20px;
+  letter-spacing: 5px;
+  animation: text 3s 1;
+}
+
+.text2{
+  font-size: 20px;
+  color: white;
+}
+
+@keyframes text{
+  0%{
+    color: white;
+  }
+  30%{
+    letter-spacing: 10px;
+  }
+  85%{
+    letter-spacing: 5px;
+  }
 }
