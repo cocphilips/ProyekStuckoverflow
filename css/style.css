@@ -13,12 +13,19 @@
   src: url(fonts/Space_Mono/SpaceMono-Regular.ttf);
 }
 
-nav>div{
+html,
+body {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+}
+
+nav>div {
   font-family: NunitoLight;
   font-size: 18px;
 }
 
-.text1{
+.text1 {
   font-size: 60px;
   color: white;
   margin-bottom: 20px;
@@ -26,19 +33,38 @@ nav>div{
   animation: text 3s 1;
 }
 
-.text2{
+.text2 {
   font-size: 20px;
   color: white;
 }
 
-@keyframes text{
-  0%{
+@keyframes text {
+  0% {
     color: white;
   }
-  30%{
+
+  30% {
     letter-spacing: 10px;
   }
-  85%{
+
+  85% {
     letter-spacing: 5px;
   }
+}
+
+#container {
+  min-height: 100%;
+  position: relative;
+}
+
+#body {
+  padding-bottom: 120px;
+}
+
+#footer {
+  position: absolute;
+  bottom: 0;
+  width: 100%;
+  height: 60px;
+  background: #141f3d;
 }

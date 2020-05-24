@@ -1,6 +1,6 @@
 <?php
+	session_start();
 	require_once("connect.php");
-
 	if(isset($_POST["email"]) && isset($_POST["password"])){
 		$email = $_POST["email"];
 		$pass = $_POST["password"];
@@ -14,6 +14,8 @@
 		}
 		else{
 			echo "Login sukses!";
+			$_SESSION["login"] = true;
+			$_SESSION["email"] = $email;
 		}
 	}
 ?>
