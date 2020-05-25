@@ -17,6 +17,8 @@
             </li>";
             echo "<li class='nav-item mr-3'><a class='nav-link' 
             style='cursor: pointer;' href='logout.php'>Logout </a></li>";
+            echo "<li class='nav-item mr-3'><a class='nav-link' 
+            style='cursor: pointer;' href='ask_page.php'>Ask A Question</a></li>";
         }
         else{
             echo "<li class='nav-item mr-3'>
