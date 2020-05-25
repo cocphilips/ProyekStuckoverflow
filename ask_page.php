@@ -10,7 +10,7 @@ if(!isset($_SESSION["login"])){
 
 <head>
   <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
   <link rel="stylesheet" type="text/css" href="css/style.css">
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
@@ -31,18 +31,19 @@ if(!isset($_SESSION["login"])){
 <body>
  <?php include "navbar.php"; ?>
 
-  <div id="container">
-    <div id="header"></div>
-    <div id="body">
-      <!-- Jumbotron -->
-      <div class="jumbotron jumbotron-fluid"
-        style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
-        <div class="container">
-          <h1 class="text1" style="text-align: center; font-family: NunitoBold;">You ask, we answer.</h1>
-          <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
-            lovers!</p>
+  <div id="container-fluid">
+    <div class="row">
+      <div class="col-sm-12">
+        <!-- Jumbotron -->
+        <div class="jumbotron jumbotron-fluid" style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
+          <div class="container">
+            <h1 class="text1" style="text-align: center; font-family: NunitoBold;">You ask, we answer.</h1>
+            <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
+              lovers!</p>
+          </div>
         </div>
       </div>
+      
     </div>
     <?php include "footer.php"; ?>
   </div>
