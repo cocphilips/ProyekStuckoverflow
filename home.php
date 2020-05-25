@@ -55,7 +55,7 @@
           },
           success: function (data) {
             alert(data);
-            window.location.href="home.php";
+            window.location.href = "home.php";
           }
         })
       });
@@ -75,8 +75,8 @@
 </head>
 
 <body>
-<!-- loginModal -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+  <!-- loginModal -->
+  <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
     <div class="modal-dialog">
       <div class="modal-content">
@@ -130,8 +130,8 @@
     </div>
   </div>
 
-<!-- Navbar -->
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <!-- Navbar -->
+  <nav class="navbar navbar-expand-lg navbar-light bg-light">
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent"
       aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
       <span class="navbar-toggler-icon"></span>
@@ -144,14 +144,17 @@
       <ul class="navbar-nav ml-auto mr-5">
         <?php
         if(isset($_SESSION["login"])){
+            echo "<li class='nav-item mr-3'>
+            <a class='nav-link'>Logged In As ".$_SESSION["dispname"]."</a>
+            </li>";
             echo "<li class='nav-item mr-3'><a class='nav-link' 
             style='cursor: pointer;' href='logout.php'>Logout </a></li>";
         }
         else{
             echo "<li class='nav-item mr-3'>
             <a class='nav-link' onclick='loginPopup()' style='cursor: pointer;'>Login</a>
-            </li>
-            <li class='nav-item mr-3'>
+            </li>";
+            echo "<li class='nav-item mr-3'>
             <a class='nav-link' onclick='signupPopup()' style='cursor: pointer;'>Signup</a>
             </li>";
         }
@@ -163,5 +166,31 @@
     </div>
   </nav>
 
+  <div id="container">
+    <div id="header"></div>
+    <div id="body">
+      <!-- Jumbotron -->
+      <div class="jumbotron jumbotron-fluid"
+        style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
+        <div class="container">
+          <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Welcome to the Ask Page.</h1>
+          <p class="text2" style="text-align: center; font-family: fontCode;">Ask your stuckness to the world!</p>
+        </div>
+      </div>
 
+      <div id="isi">
+        <form action="/action_page.php">
+          <div class="form-group">
+            <label for="judul">Question Title :</label>
+            <input type="text" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
+          </div>
+          <div class="form-group">
+            <label for="isi">Your Question :</label>
+            <input type="text" class="form-control" id="isi">
+          </div>
+
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
 </body>
+</html>
