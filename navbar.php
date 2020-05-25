@@ -6,7 +6,7 @@
     </button>
 
     <div class="collapse navbar-collapse" id="navbarSupportedContent" style="padding-left: 20px;">
-      <a class="navbar-brand">
+      <a class="navbar-brand" href="home.php">
         <img src="img/logo.png" width="30%" height="30%">
       </a>
       <ul class="navbar-nav ml-auto mr-5">
