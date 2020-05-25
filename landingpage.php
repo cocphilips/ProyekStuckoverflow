@@ -194,10 +194,7 @@ if(isset($_SESSION["login"])){
         </div>
       </div>
     </div>
-    <div id="footer">
-      <p style="color: white; font-family: fontCode; text-align: center; padding-top: 20px;">Copyright ©2020
-        Stuckoverflow</p>
-    </div>
+    <?php include "footer.php"; ?>
   </div>
 </body>
 

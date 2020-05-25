@@ -160,5 +160,7 @@
           <button type="submit" class="btn btn-primary">Submit</button>
         </form>
       </div>
+    <?php include "footer.php"; ?>
+
 </body>
 </html>
