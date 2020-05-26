@@ -22,6 +22,7 @@
 
   <script type="text/javascript">
     $(document).ready(function () {
+
       $("#signupButton").click(function () {
         var name = $("#s_disname").val();
         var email = $("#s_email").val();
@@ -75,6 +76,9 @@
 </head>
 
 <body>
+  <?php 
+  include "navbar.php";
+  ?>
   <!-- loginModal -->
   <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
     aria-hidden="true">
@@ -130,37 +134,43 @@
     </div>
   </div>
 
- <?php 
-  include "navbar.php";
-  ?>
-
-  <div id="container">
-    <div id="header"></div>
-    <div id="body">
-      <!-- Jumbotron -->
-      <div class="jumbotron jumbotron-fluid"
+  <div class="jumbotron jumbotron-fluid"
         style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
         <div class="container">
-          <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Welcome to the Ask Page.</h1>
-          <p class="text2" style="text-align: center; font-family: fontCode;">Ask your stuckness to the world!</p>
+          <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Solving your stuckness.</h1>
+          <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
+            lovers!</p>
         </div>
       </div>
+  <div class="questions text-center" id="questions">
+    <?php
+      require_once("connect.php");
 
-      <div id="isi">
-        <form action="/action_page.php">
-          <div class="form-group">
-            <label for="judul">Question Title :</label>
-            <input type="text" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
-          </div>
-          <div class="form-group">
-            <label for="isi">Your Question :</label>
-            <input type="text" class="form-control" id="isi">
-          </div>
+      $q = mysqli_query($con, "SELECT * FROM questions ORDER BY likes DESC LIMIT 10");
+      if(!empty($q)){
+        while($row=mysqli_fetch_assoc($q)){
+          echo "<div style='background-color:cyan; width:50%; margin:0 auto;' id='".$row['id']."'><h5><b>".$row['topik']."</b></h5>";
+          $words = explode(" ", $row['isi']);
+          echo "<p>";
+          if(count($words)>3){
+            for($i=0;$i<3;$i++){
+              echo $words[$i]. " ";
+            }
+          }
+          else {
+            echo "<p>".$row['isi'];
+          }
+          echo "</p></div>";
+        }
 
-          <button type="submit" class="btn btn-primary">Submit</button>
-        </form>
-      </div>
-    <?php include "footer.php"; ?>
+      }
+      
+    ?>
+  </div>
+
+ 
+      
+    <!-- <?php include "footer.php"; ?> -->
 
 </body>
 </html>
