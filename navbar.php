@@ -32,6 +32,9 @@
         <li class="nav-item">
           <a class="nav-link" style="cursor: pointer;" href="aboutus.html">About Us </a>
         </li>
+        <li class="nav-item">
+          <a class="nav-link" style="cursor: pointer;" href="explore.php">Explore</a>
+        </li>
       </ul>
     </div>
   </nav>
