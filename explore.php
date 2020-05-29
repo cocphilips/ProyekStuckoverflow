@@ -140,6 +140,12 @@ session_start();
  <?php include "navbar.php"; ?>
 
   <div id="container-fluid">
+    <div class="row">
+      <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5">
+          <h5>Search questions</h5>
+          <input type="text" id="question_query" class="form-control" placeholder="insert user, tags, questions">
+      </div>
+    </div>
     <?php include "footer.php"; ?>
   </div>
 </body>
