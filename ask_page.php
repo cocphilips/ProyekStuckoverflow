@@ -1,6 +1,3 @@
-<?php
-session_start();
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -58,8 +55,9 @@ session_start();
   </script>
 </head>
 
-<body>
+<body style="background-color: #d4cfcd;">
   <?php include "navbar.php"; ?>
+
 
   <!-- modal tag -->
   <div class="modal fade" id="tagModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -94,21 +92,80 @@ session_start();
             lovers!</p>
         </div>
       </div>
-    </div>
+      <div class="container-bwh" style=" width: 80%; margin:0 auto;">
 
-    <div id="isi">
-      <div class="form-group">
-        <label for="judul">Question Title :</label>
-        <input type="text" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
+        <div class="row">
+          <div class="col-8">
+
+
+            <h1>Ask your question</h1>
+            <div class="form-group">
+              <label for="judul">Question Title :</label>
+              <input type="text" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
+            </div>
+            <div class="form-group">
+              <label for="isi">Your Question :</label>
+              <textarea class="form-control" id="pertanyaan" rows="5" placeholder="Min 10 words"></textarea>
+            </div>
+            <button class="btn btn-primary" onclick="addTag()">Add Tag</button>
+            <button type="submit" class="btn btn-primary" id="submitData">Submit</button>
+          </div>
+          <div class="col-4" style="float:right;">
+            <div id="accordion">
+              <div class="card">
+                <div class="card-header" id="headingOne">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                      Step 1 : Summarize the problem
+                    </button>
+                  </h5>
+                </div>
+
+                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Describe your goal and expectation</p>
+                    <p>Describe the problem or error</p>
+                    <p>Include any error message</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingTwo">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                      Step 2 : Describe what you've tried
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Show what you've tried and why it didn't meet your expectations</p>
+                  </div>
+                </div>
+              </div>
+              <div class="card">
+                <div class="card-header" id="headingThree">
+                  <h5 class="mb-0">
+                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                      Step 3 : Show some code
+                    </button>
+                  </h5>
+                </div>
+                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+                  <div class="card-body">
+                    <p>Share some of your code that others need to reproduce</p>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
       </div>
-      <div class="form-group">
-        <label for="isi">Your Question :</label>
-        <input type="text" class="form-control" id="pertanyaan" placeholder="Min:10 words">
-      </div>
-      <button class="btn btn-primary" onclick="addTag()">Add Tag</button>
-      <button type="submit" class="btn btn-primary" id="submitData">Submit</button>
     </div>
   </div>
+
+
+  </div> <!-- end container -->
 
 
 

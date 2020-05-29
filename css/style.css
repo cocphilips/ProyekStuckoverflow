@@ -13,12 +13,12 @@
   src: url(fonts/Space_Mono/SpaceMono-Regular.ttf);
 }
 
-html,
+/* html,
 body {
   margin: 0;
   padding: 0;
   height: 100%;
-}
+} */
 
 nav>div {
   font-family: NunitoLight;
@@ -36,6 +36,27 @@ nav>div {
 .text2 {
   font-size: 20px;
   color: white;
+}
+
+.text3 {
+  color: white;
+  font-size: 60px;
+  margin-bottom: 20px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: type 3s steps(23);
+  border-right: 4px solid white;
+  width: 23ch;
+}
+
+@keyframes type {
+  0% {
+    width: 0ch;
+  }
+
+  100% {
+    width: 23ch;
+  }
 }
 
 @keyframes text {
