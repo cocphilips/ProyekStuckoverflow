@@ -156,7 +156,9 @@ session_start();
       </div>
     </div>
     <div id="searchResult">
-        
+        <div class="row" style="margin-bottom: 40%;">
+          
+        </div>
     </div>
     <?php include "footer.php"; ?>
   </div>
