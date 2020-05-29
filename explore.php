@@ -142,10 +142,10 @@ session_start();
   <div id="container-fluid">
     <div class="row">
       <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5">
-          <form autocomplete="off">
+        <form id="searchBarForm">
             <h5>Search questions</h5>
-            <input autocomplete="off" type="text" id="question_query" class="form-control" placeholder="insert user, tags, questions">
-          </form>
+            <input type="text" id="question_query" class="form-control" placeholder="insert user, tags, questions">
+        </form>
       </div>
     </div>
     <div class="row">
@@ -157,6 +157,28 @@ session_start();
   </div>
 </body>
 <script type="text/javascript">
-  
+//SearchBar Jquery
+$("#searchBarForm").submit(function(e){
+    e.preventDefault();
+  });
+$("#question_query").on('keyup', function (e) {
+    if (e.keyCode === 13) {
+      console.log("Enter triggered from search bar");
+      var query = $("#question_query").val();
+      console.log("The query:"+query);
+      // $.ajax({
+      //   type: "POST",
+      //   url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>",
+      //   data: {requestType:"eraseData",id:id},
+      //   success: function(data){
+      //      $("#notification").html(data);
+      //      updateView();
+
+      //      setTimeout(function(){ $("#notification").html(""); }, 3000);
+      //   } 
+      // });
+  }
+});
+
 </script>
 </html>
