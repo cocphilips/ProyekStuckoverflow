@@ -155,10 +155,8 @@ session_start();
         </form>
       </div>
     </div>
-    <div class="row">
-        <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5" id="searchResult">
-          <!-- <img src="img/load.gif" class="mx-auto d-block mt-2" width="25"> -->
-        </div>
+    <div id="searchResult">
+        
     </div>
     <?php include "footer.php"; ?>
   </div>
@@ -179,17 +177,15 @@ function searchTrigger() {
     console.log("Enter triggered from search bar");
     var query = $("#question_query").val();
     console.log("The query:"+query);
-    // $.ajax({
-    //   type: "POST",
-    //   url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>",
-    //   data: {requestType:"eraseData",id:id},
-    //   success: function(data){
-    //      $("#notification").html(data);
-    //      updateView();
-
-    //      setTimeout(function(){ $("#notification").html(""); }, 3000);
-    //   } 
-    // });
+    $.ajax({
+      type: "POST",
+      url: "searchApp.php",
+      data: {requestType:"search",query:query},
+      success: function(data){
+         console.log(data);
+         $("#searchResult").html(data);
+      } 
+    });
   
 }
 
