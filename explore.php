@@ -148,8 +148,15 @@ session_start();
           </form>
       </div>
     </div>
+    <div class="row">
+        <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5" id="searchResult">
+          <!-- <img src="img/load.gif" class="mx-auto d-block mt-2" width="25"> -->
+        </div>
+    </div>
     <?php include "footer.php"; ?>
   </div>
 </body>
-
+<script type="text/javascript">
+  
+</script>
 </html>
