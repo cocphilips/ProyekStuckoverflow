@@ -144,7 +144,14 @@ session_start();
       <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5">
         <form id="searchBarForm">
             <h5>Search questions</h5>
-            <input type="text" id="question_query" class="form-control" placeholder="insert user, tags, questions">
+            <div class="input-group">
+              <input type="text" id="question_query" class="form-control">
+              <span class="input-group-btn">
+                <button class="btn btn-primary" onclick="searchTrigger()">Search</button>
+              </span>
+            </div><!-- /input-group -->
+            
+            
         </form>
       </div>
     </div>
@@ -162,23 +169,29 @@ $("#searchBarForm").submit(function(e){
     e.preventDefault();
   });
 $("#question_query").on('keyup', function (e) {
-    if (e.keyCode === 13) {
-      console.log("Enter triggered from search bar");
-      var query = $("#question_query").val();
-      console.log("The query:"+query);
-      // $.ajax({
-      //   type: "POST",
-      //   url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>",
-      //   data: {requestType:"eraseData",id:id},
-      //   success: function(data){
-      //      $("#notification").html(data);
-      //      updateView();
-
-      //      setTimeout(function(){ $("#notification").html(""); }, 3000);
-      //   } 
-      // });
+  if (e.keyCode === 13) {
+    searchTrigger();
   }
+    
 });
+function searchTrigger() {
+  
+    console.log("Enter triggered from search bar");
+    var query = $("#question_query").val();
+    console.log("The query:"+query);
+    // $.ajax({
+    //   type: "POST",
+    //   url: "<?php echo htmlspecialchars($_SERVER["PHP_SELF"]);?>",
+    //   data: {requestType:"eraseData",id:id},
+    //   success: function(data){
+    //      $("#notification").html(data);
+    //      updateView();
+
+    //      setTimeout(function(){ $("#notification").html(""); }, 3000);
+    //   } 
+    // });
+  
+}
 
 </script>
 </html>
