@@ -143,7 +143,7 @@ session_start();
     <div class="row">
       <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5">
         <form id="searchBarForm">
-            <h5>Search questions</h5>
+            <h5>Search by name,tags, anything.</h5>
             <div class="input-group">
               <input type="text" id="question_query" class="form-control">
               <span class="input-group-btn">
