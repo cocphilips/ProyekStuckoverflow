@@ -21,28 +21,10 @@ if (!isset($_SESSION["login"])) {
     </script>
 
     <script type="text/javascript">
-        $(document).ready(function() {
-            var id_question = <?php echo $_GET["id"]; ?>;
-            $("#submitData").click(function() {
-                var answer = $("#jawab").val();
-                var id_user = <?php echo $_SESSION["id"]; ?>;
+        //getAllComment
+        var id_question = <?php echo $_GET["id"]; ?>;
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'addAnswer.php',
-                    datatype: "json",
-                    data: {
-                        answer: answer,
-                        id_question: id_question,
-                        id_user: id_user
-                    },
-                    success: function(data) {
-
-                    }
-                });
-
-            });
-            //getAllComment
+        function refreshComment() {
             $.ajax({
                 type: 'GET',
                 url: 'showComment.php',
@@ -63,6 +45,64 @@ if (!isset($_SESSION["login"])) {
                     dataDiv.html(str);
                 }
             });
+        }
+
+        function refreshLike() {
+            $.ajax({
+                type: 'GET',
+                url: 'showLike.php',
+                datatype: "json",
+                data: {
+                    id_question: id_question
+                },
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    var d = data[0];
+                    var dataDiv = $("#jumlahlike");
+                    var str = "";
+                    str += d.likes;
+                    dataDiv.html(str);
+                }
+            });
+        }
+
+        function likeClick() {
+            var id_user = <?php echo $_SESSION["id"]; ?>;
+            $.ajax({
+                type: 'POST',
+                url: 'addLike.php',
+                datatype: "json",
+                data: {
+                    id_question: id_question,
+                    id_user: id_user
+                },
+                success: function(data) {
+                    document.getElementById("gambarlike").src = "img/after.png";
+                    refreshLike();
+                }
+            });
+        }
+        $(document).ready(function() {
+            refreshComment();
+            refreshLike();
+            $("#submitData").click(function() {
+                var answer = $("#jawab").val();
+                var id_user = <?php echo $_SESSION["id"]; ?>;
+
+                $.ajax({
+                    type: 'POST',
+                    url: 'addAnswer.php',
+                    datatype: "json",
+                    data: {
+                        answer: answer,
+                        id_question: id_question,
+                        id_user: id_user
+                    },
+                    success: function(data) {
+                        refreshComment();
+                    }
+                });
+            });
         });
     </script>
 </head>
@@ -79,19 +119,28 @@ if (!isset($_SESSION["login"])) {
             <div class="col-7">
                 <?php
                 require_once("connect.php");
+
                 if (isset($_GET["id"])) {
                     $id = $_GET["id"];
 
                     $q = mysqli_query($con, "SELECT * FROM questions WHERE id = " . intval($id));
                     $q2 = mysqli_query($con, "SELECT * FROM tags WHERE id_questions = " . intval($id));
-
+                    $id_question = $_GET["id"];
+                    $id_user = $_SESSION["id"];;
                     if ($q->num_rows > 0) {
                         while ($row = mysqli_fetch_assoc($q)) {
                             $q3 = mysqli_query($con, "SELECT displayname FROM users WHERE id = '" . $row['id_users'] . "'");
                             $row3 = mysqli_fetch_assoc($q3);
                             echo "<div><h5 style='margin-bottom: 10px;font-family: NunitoLight; font-size: 24px;'><b>" . $row['topik'] . "</b></h5>";
                             echo "<p style='font-family: fontCode; font-size:14px;'> Asked by " . $row3["displayname"] . "</p>";
-                            echo "<p style='font-family: fontCode;'>" . $row["isi"] . "</p>";
+                            $like = mysqli_query($con, "SELECT * FROM likes WHERE id_questions='" . $id_question . "' AND id_users='" . $id_user . "'");
+                            if ($like->num_rows == 0) {
+                                echo "<img id='gambarlike' onclick='likeClick()' src='img/before.png' style='cursor:pointer;'>";
+                            } else {
+                                echo "<img id='gambarlike' src='img/after.png' style='cursor:pointer;'>";
+                            }
+                            echo "<span id='jumlahlike'></span>";
+                            echo "<p style='font-family: fontCode; margin-top: 20px;'>" . $row["isi"] . "</p>";
                         }
                         while ($row2 = mysqli_fetch_assoc($q2)) {
                             echo "<div style='width:50%;'><p style='cursor:pointer;font-size: 12px; margin-bottom: 5px;font-family: fontCode;'>" . $row2["namatag"] . "</p></div>";
@@ -103,12 +152,12 @@ if (!isset($_SESSION["login"])) {
                 }
                 ?>
                 <div class="form-group" style="margin-top: 30px;">
-                    <label style='font-family: NunitoLight;' for="jawab">Comment :</label>
+                    <label style='font-family: NunitoLight;' for="jawab">Answer :</label>
                     <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Min 10 words"></textarea>
                 </div>
                 <button type="submit" class="btn" id="submitData" style="color: white; background-color: #141f3d;">Submit</button>
             </div>
-            <div class="col-5" style="height:200px; overflow-y:scroll; margin:0 auto;">
+            <div class="col-5" style="height:600px; overflow-y:scroll; margin:0 auto;">
                 <div id="comments">
                 </div>
             </div>
