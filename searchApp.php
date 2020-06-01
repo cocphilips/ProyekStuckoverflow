@@ -87,9 +87,11 @@ if(isset($_POST["requestType"])){
 			$output.='
 			<div class="row">
 				<div class="col-sm-12 col-md-6 offset-md-3">
+				<a href="answerPage.php?id='.$row["id"].'" style="text-decoration:none; color:black;">
 	        		<p class="question-title"><b>'.$row["topik"].'</b></p>
 	        		<p class="question-title"><i>'.$row["isi"].'</i></p>
 	        		<p class="question-title"><small>Asked at '.$row["waktu"].' by '.$name.'</small></p>
+	        	</a>
 	        		<hr>
 	        	</div>
         	</div>
