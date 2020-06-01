@@ -70,7 +70,17 @@ session_start();
 
     function seeQuestion(id) {
       var thisID = id;
-      window.location.href = "answerPage.php?id=" + thisID;
+      <?php
+      if (!isset($_SESSION["login"])) {
+      ?>
+        $('#loginModal').modal('show');
+      <?php
+      } else {
+      ?>
+        window.location.href = "answerPage.php?id=" + thisID;
+      <?php
+      }
+      ?>
     }
   </script>
 
@@ -86,19 +96,19 @@ session_start();
     <div class="modal-dialog">
       <div class="modal-content">
         <div class="modal-header">
-          <h5 class="modal-title" id="exampleModalLabel">Login</h5>
+          <h3 class="modal-title" style="font-family: NunitoLight;" id="exampleModalLabel">Login</h3>
           <button type="button" class="close" data-dismiss="modal" aria-label="Close">
             <span aria-hidden="true">&times;</span>
           </button>
         </div>
         <div class="modal-body">
-          <label>Email : </label>
-          <input type="email" name="email" id="l_email" placeholder="Masukkan email anda.." style="width: 100%; padding: 10px;">
-          <label>Password : </label>
-          <input type="password" name="password" id="l_password" placeholder="Masukkan password anda.." style="width: 100%; padding: 10px;">
+          <label style="font-family: NunitoLight;">Email : </label>
+          <input type="email" name="email" id="l_email" placeholder="Masukkan email anda.." style="width: 100%; padding: 10px; font-family: NunitoLight;">
+          <label style="margin-top: 10px; font-family: NunitoLight;">Password : </label>
+          <input type="password" name="password" id="l_password" placeholder="Masukkan password anda.." style="width: 100%; padding: 10px; font-family: NunitoLight;">
         </div>
         <div class="modal-footer">
-          <button type="button" class="btn btn-primary" id="loginButton">Login</button>
+          <button type="button" class="btn" id="loginButton" style="color: white; background-color: #141f3d;">Login</button>
         </div>
       </div>
     </div>
@@ -115,21 +125,22 @@ session_start();
           </button>
         </div>
         <div class="modal-body">
-          <label>Display Name : </label>
-          <input type="text" name="displayname" id="s_disname" placeholder="Masukkan display name anda.." style="width: 100%; padding: 10px;">
-          <label>Email : </label>
-          <input type="email" name="email" id="s_email" placeholder="Masukkan email anda.." style="width: 100%; padding: 10px;">
-          <label>Password : </label>
-          <input type="password" name="password" id="s_password" placeholder="Masukkan password anda.." style="width: 100%; padding: 10px;">
+          <label style="font-family: NunitoLight;">Display Name : </label>
+          <input type="text" name="displayname" id="s_disname" placeholder="Masukkan display name anda.." style="width: 100%; padding: 10px; font-family: NunitoLight;">
+          <label style="margin-top: 10px; font-family: NunitoLight;">Email : </label>
+          <input type="email" name="email" id="s_email" placeholder="Masukkan email anda.." style="width: 100%; padding: 10px; font-family: NunitoLight;">
+          <label style="margin-top: 10px; font-family: NunitoLight;">Password : </label>
+          <input type="password" name="password" id="s_password" placeholder="Masukkan password anda.." style="width: 100%; padding: 10px; font-family: NunitoLight;">
           <div class="modal-footer">
-            <button type="button" class="btn btn-primary" id="signupButton">Sign Up</button>
+            <button type="button" class="btn" id="signupButton" style="color: white; background-color: #141f3d;">Sign
+              Up</button>
           </div>
         </div>
       </div>
     </div>
   </div>
 
-  <div class="jumbotron jumbotron-fluid" id="banner" style="background-color: #141f3d; background-image:url(img/home.png);">
+  <div class=" jumbotron jumbotron-fluid" id="banner" style="background-color: #141f3d; background-image:url(img/home.png);">
     <div class="container">
       <h1 class="text3">See others stuckness as well.</h1>
       <p class="text2" style="text-align: left;">Learn and grow together</p>

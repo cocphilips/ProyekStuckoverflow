@@ -1,5 +1,9 @@
 <?php
 session_start();
+if (!isset($_SESSION["login"])) {
+    header("Location: home.php");
+    exit;
+}
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -52,7 +56,7 @@ session_start();
                     var str = "";
                     for (var i = 0; i < data.length; i++) {
                         var d = data[i];
-                        str += "<div class='content text-center' style='margin: 0 auto; background-color:salmon;'><h6>" + d.displayname + "</h6>";
+                        str += "<div class='content text-center' style='background-color:salmon;'><h6>" + d.displayname + "</h6>";
                         str += "<p>" + d.waktu + "</p>";
                         str += "<p>" + d.isi + "</p></div>";
                     }
@@ -67,12 +71,8 @@ session_start();
     <?php
     include "navbar.php";
     ?>
-    <div class="jumbotron jumbotron-fluid" style="height: 300px; background-color: #141f3d;">
-        <div class="container">
-            <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Solving your stuckness.</h1>
-            <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
-                lovers!</p>
-        </div>
+    <div class="jumbotron jumbotron-fluid" style="height: 300px; background-color: #141f3d;
+    background-image:url(img/task.png); background-size:contain; background-position: center; background-repeat:no-repeat;">
     </div>
     <div class="container">
         <div class="row">
@@ -87,23 +87,26 @@ session_start();
 
                     if ($q->num_rows > 0) {
                         while ($row = mysqli_fetch_assoc($q)) {
-                            echo "<div style='background-color:cyan; width:100%; margin:0 auto;'><h5><b>" . $row['topik'] . "</b></h5>";
-                            echo "<p>" . $row["isi"] . "</p>";
+                            $q3 = mysqli_query($con, "SELECT displayname FROM users WHERE id = '" . $row['id_users'] . "'");
+                            $row3 = mysqli_fetch_assoc($q3);
+                            echo "<div><h5 style='margin-bottom: 10px;font-family: NunitoLight; font-size: 24px;'><b>" . $row['topik'] . "</b></h5>";
+                            echo "<p style='font-family: fontCode; font-size:14px;'> Asked by " . $row3["displayname"] . "</p>";
+                            echo "<p style='font-family: fontCode;'>" . $row["isi"] . "</p>";
                         }
-                        while ($row1 = mysqli_fetch_assoc($q2)) {
-                            echo "<p>" . $row1["namatag"] . "</p>";
+                        while ($row2 = mysqli_fetch_assoc($q2)) {
+                            echo "<div style='width:50%;'><p style='cursor:pointer;font-size: 12px; margin-bottom: 5px;font-family: fontCode;'>" . $row2["namatag"] . "</p></div>";
                         }
-                        echo "</h6></div>";
+                        echo "</div>";
                     }
                 } else {
                     echo "kosong";
                 }
                 ?>
-                <div class="form-group" style=" background-color:aqua;">
-                    <label for="jawab">Comment :</label>
-                    <textarea class="form-control" id="jawab" rows="5" placeholder="Min 10 words"></textarea>
+                <div class="form-group" style="margin-top: 30px;">
+                    <label style='font-family: NunitoLight;' for="jawab">Comment :</label>
+                    <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Min 10 words"></textarea>
                 </div>
-                <button type="submit" class="btn btn-primary" id="submitData">Submit</button>
+                <button type="submit" class="btn" id="submitData" style="color: white; background-color: #141f3d;">Submit</button>
             </div>
             <div class="col-5" style="height:200px; overflow-y:scroll; margin:0 auto;">
                 <div id="comments">
@@ -111,6 +114,7 @@ session_start();
             </div>
         </div>
     </div>
+    <?php include "footer.php"; ?>
 </body>
 
 </html>
