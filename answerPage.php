@@ -78,10 +78,30 @@ if (!isset($_SESSION["login"])) {
                 },
                 success: function(data) {
                     document.getElementById("gambarlike").src = "img/after.png";
+                    document.getElementById("gambarlike").setAttribute("onclick", "javascript:unlikeClick()");
                     refreshLike();
                 }
             });
         }
+
+        function unlikeClick() {
+            var id_user = <?php echo $_SESSION["id"]; ?>;
+            $.ajax({
+                type: 'POST',
+                url: 'removeLike.php',
+                datatype: "json",
+                data: {
+                    id_question: id_question,
+                    id_user: id_user
+                },
+                success: function(data) {
+                    document.getElementById("gambarlike").src = "img/before.png";
+                    document.getElementById("gambarlike").setAttribute("onclick", "javascript:likeClick()");
+                    refreshLike();
+                }
+            });
+        }
+
         $(document).ready(function() {
             refreshComment();
             refreshLike();
@@ -138,7 +158,7 @@ if (!isset($_SESSION["login"])) {
                             if ($like->num_rows == 0) {
                                 echo "<img id='gambarlike' onclick='likeClick()' src='img/before.png' style='cursor:pointer;'>";
                             } else {
-                                echo "<img id='gambarlike' src='img/after.png' style='cursor:pointer;'>";
+                                echo "<img id='gambarlike' onclick='unlikeClick()' src='img/after.png' style='cursor:pointer;'>";
                             }
                             echo "<span id='jumlahlike'></span>";
                             echo "<p style='font-family: fontCode; margin-top: 20px;'>" . $row["isi"] . "</p>";
