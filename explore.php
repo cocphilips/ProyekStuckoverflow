@@ -147,7 +147,7 @@ session_start();
             <div class="input-group">
               <input type="text" id="question_query" class="form-control">
               <span class="input-group-btn">
-                <button class="btn btn-primary" onclick="searchTrigger()">Search</button>
+                <button class="btn btn-primary" onclick="search(0)">Search</button>
               </span>
             </div><!-- /input-group -->
             
@@ -170,7 +170,7 @@ $("#searchBarForm").submit(function(e){
   });
 $("#question_query").on('keyup', function (e) {
   if (e.keyCode === 13) {
-    searchTrigger();
+    search(0);
   }
     
 });
@@ -182,13 +182,26 @@ function searchTrigger() {
     $.ajax({
       type: "POST",
       url: "searchApp.php",
-      data: {requestType:"search",query:query},
+      data: {requestType:"searchUser",query:query},
       success: function(data){
          console.log(data);
          $("#searchResult").html(data);
       } 
     });
   
+}
+function search(page) {
+	var query = $("#question_query").val();
+    console.log("The query:"+query);
+    $.ajax({
+      type: "POST",
+      url: "searchApp.php",
+      data: {requestType:"search_by_word",query:query, page:page},
+      success: function(data){
+         console.log(data);
+         $("#searchResult").html(data);
+      } 
+    });
 }
 
 </script>
