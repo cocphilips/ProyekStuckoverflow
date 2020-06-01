@@ -168,6 +168,8 @@ session_start();
         echo "<div class='card-footer text-muted'>";
         echo "<img id='like' src='img/like.png'>";
         echo "<span id='totallike'>" . $row['likes'] . "</span>";
+        echo "<img id='answer' src='img/answers.png'>";
+        echo "<span id='totalanswer'>" . $row['answerscount'] . "</span>";
         echo "<p id='akhirtopik'>
         Asked by : <b>" . $row2['displayname'] . "</b>&nbsp" . $row['waktu'] . "</div></div>";
       }

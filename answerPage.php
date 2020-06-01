@@ -99,6 +99,7 @@ if (!isset($_SESSION["login"])) {
                         id_user: id_user
                     },
                     success: function(data) {
+                        alert("Berhasil menambahkan jawaban!");
                         refreshComment();
                     }
                 });
