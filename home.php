@@ -129,13 +129,13 @@ session_start();
     </div>
   </div>
 
-  <div class="jumbotron jumbotron-fluid" style="height: 350px; background-image: url(img/home.png);  background-position: center; background-size: cover;">
+  <div class="jumbotron jumbotron-fluid" id="banner" style="background-color: #141f3d; background-image:url(img/home.png);">
     <div class="container">
-      <h1 class="text3" style="font-family: NunitoBold;">See others stuckness as well.</h1>
-      <p class="text2" style="font-size: 24px; font-family: fontCode;">Learn and grow together</p>
+      <h1 class="text3">See others stuckness as well.</h1>
+      <p class="text2" style="text-align: left;">Learn and grow together</p>
     </div>
   </div>
-  <div class="questions text-center" id="questions" style="margin-bottom: 20px;">
+  <div class="container-fluid" id="questions" style="margin-bottom: 20px;">
     <?php
     require_once("connect.php");
 
@@ -143,11 +143,11 @@ session_start();
     if (!empty($q)) {
       while ($row = mysqli_fetch_assoc($q)) {
         echo "<div class='card text-center' style='width:60%; margin: 0 auto; margin-top: 20px;'>";
-        echo "<div class='card-header'><h5 style='cursor:pointer;font-family: NunitoLight; text-align:left; font-size: 24px; 
+        echo "<div class='card-header'><h5 id='judultopik' style='cursor:pointer;font-family: NunitoLight; text-align:left; 
         margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" . $row['id'] . "\")'><b>" . "Topik : " . $row['topik'] . "</b></h5></div>";
         echo "<div class='card-body'>";
         $words = explode(" ", $row['isi']);
-        echo "<p style='font-family:fontCode; text-align:left; margin-left:15px;'>";
+        echo "<p id='isitopik'>";
         for ($i = 0; $i < 10; $i++) {
           echo $words[$i] . " ";
         }
@@ -155,9 +155,9 @@ session_start();
         $q2 = mysqli_query($con, "SELECT displayname FROM users WHERE id = '" . $row['id_users'] . "'");
         $row2 = mysqli_fetch_assoc($q2);
         echo "<div class='card-footer text-muted'>";
-        echo "<img src='img/like.png' width=20px; height=20px; style='float:left;margin-top:3px;'>";
-        echo "<span style='float:left; padding-left:5px;'>" . $row['likes'] . "</span>";
-        echo "<p style='text-align:right; font-family:fontCode; font-size:14px; margin-right:5px;margin-bottom:10px;'>
+        echo "<img id='like' src='img/like.png'>";
+        echo "<span id='totallike'>" . $row['likes'] . "</span>";
+        echo "<p id='akhirtopik'>
         Asked by : <b>" . $row2['displayname'] . "</b>&nbsp" . $row['waktu'] . "</div></div>";
       }
     }
@@ -165,10 +165,7 @@ session_start();
     ?>
   </div>
 
-
-
-  <!-- <?php include "footer.php"; ?> -->
-
+  <?php include "footer.php"; ?>
 </body>
 
 </html>

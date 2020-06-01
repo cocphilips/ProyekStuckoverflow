@@ -130,20 +130,20 @@ if (isset($_SESSION["login"])) {
   <!-- Jumbotron -->
   <div class="jumbotron jumbotron-fluid" style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
     <div class="container">
-      <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Solving your stuckness.</h1>
-      <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
+      <h1 class="text1">Solving your stuckness.</h1>
+      <p class="text2">Ask and answer questions online with code
         lovers!</p>
     </div>
   </div>
 
   <!-- Cards -->
-  <div class="container">
+  <div class="container-fluid">
     <div class="card-deck" style="margin:0 auto;">
       <div class="card text-center" style="border: 2px solid #141f3d;">
         <div class="card-body">
-          <h4 class="card-title" style="font-family: NunitoBold;">Ask anything that make your life stuck</h4>
+          <h4 class="card-title">Ask anything that make your life stuck</h4>
           <img src="img/qna.png" class="card-img-top">
-          <p class="card-text" style="font-family: fontCode; text-align: justify;">Wondering what is the solution of
+          <p class="card-text">Wondering what is the solution of
             your coding problem? You
             can ask to everyone here who
             loves coding!</p>
@@ -152,9 +152,9 @@ if (isset($_SESSION["login"])) {
       </div>
       <div class="card text-center" style="border: 2px solid #141f3d;">
         <div class="card-body">
-          <h2 class="card-title" style="font-family: NunitoBold;">Stuckoverflow</h2>
+          <h2 class="card-title">Stuckoverflow</h2>
           <img src="img/mid.png" class="card-img-top">
-          <p class=" card-text" style="font-family: fontCode; font-size: 18px; text-align: justify;">This is a place
+          <p class="card-text">This is a place
             to
             relieve your mind
             from being stuck and
@@ -166,9 +166,9 @@ if (isset($_SESSION["login"])) {
       </div>
       <div class="card text-center" style="border: 2px solid #141f3d;">
         <div class="card-body">
-          <h4 class="card-title" style="font-family: NunitoBold;">Be someone else's superhero</h4>
+          <h4 class="card-title">Be someone else's superhero</h4>
           <img src="img/superhero.png" class="card-img-top" style="width: 50%;">
-          <p class="card-text" style="font-family: fontCode; text-align: justify; margin-top: 20px;">Is your dream to
+          <p class="card-text">Is your dream to
             be
             a superhero?
             Well, here is your chance
