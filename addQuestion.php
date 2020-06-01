@@ -1,4 +1,5 @@
 <?php
+session_start();
 require_once("connect.php");
 
 if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
@@ -11,11 +12,10 @@ if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
 
 	$cekJudul = mysqli_query($con, "SELECT * FROM questions WHERE topik='" . $title . "'");
 
-
 	if ($cekJudul->num_rows > 0) {
 		echo "Topik sudah dibahas!";
 	} else {
-		$q = mysqli_query($con, "INSERT INTO questions (id,topik,isi) Values (0, '" . $title . "', '" . $isi . "')");
+		$q = mysqli_query($con, "INSERT INTO questions (id,topik,isi,id_users) VALUES (0, '" . $title . "', '" . $isi . "','" . $_SESSION['id'] . "')");
 		if (!empty($_POST["tag"])) {
 			$cekJudul = mysqli_query($con, "SELECT * FROM questions WHERE topik='" . $title . "'");
 			$row = $cekJudul->fetch_assoc();
@@ -27,11 +27,6 @@ if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
 				$q2 = mysqli_query($con, "INSERT INTO tags Values(0, " . $getID . ", '" . $tag[$x] . "')");
 			}
 		}
-
-
-		// $row = $cekEmail-> fetch_assoc();
-		// echo "Login sukses!";
-
 	}
 } else {
 	echo "gagal";

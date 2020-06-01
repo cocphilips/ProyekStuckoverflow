@@ -38,9 +38,22 @@ if (!isset($_SESSION["login"])) {
                     var str = "";
                     for (var i = 0; i < data.length; i++) {
                         var d = data[i];
-                        str += "<div class='content text-center' style='background-color:salmon;'><h6>" + d.displayname + "</h6>";
-                        str += "<p>" + d.waktu + "</p>";
-                        str += "<p>" + d.isi + "</p></div>";
+                        var idAnswer = d.id;
+                        str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
+                        str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
+                        <?php
+                        require_once("connect.php");
+                        $id_question = $_GET["id"];
+                        $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
+                        $hasil = $kueri->fetch_assoc();
+                        ?>
+                        var benar = <?php echo $hasil["valid"] ?>;
+                        if (benar == idAnswer) {
+                            str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctAfter.png' style='cursor:pointer;'>";
+                        } else {
+                            str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
+                        }
+                        str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
                     }
                     dataDiv.html(str);
                 }
@@ -62,6 +75,25 @@ if (!isset($_SESSION["login"])) {
                     var str = "";
                     str += d.likes;
                     dataDiv.html(str);
+                }
+            });
+        }
+
+        function correctClick(idAnswer) {
+            alert("Masok");
+            var id_user = <?php echo $_SESSION["id"]; ?>;
+            $.ajax({
+                type: 'POST',
+                url: 'addValid.php',
+                datatype: "json",
+                data: {
+                    idAnswer: idAnswer,
+                    id_question: id_question,
+                    id_user: id_user
+                },
+                success: function(data) {
+                    alert(data);
+                    document.getElementById(idAnswer).src = "img/correctAfter.png";
                 }
             });
         }
@@ -176,7 +208,7 @@ if (!isset($_SESSION["login"])) {
                     <label style='font-family: NunitoLight;' for="jawab">Answer :</label>
                     <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Min 10 words"></textarea>
                 </div>
-                <button type="submit" class="btn" id="submitData" style="color: white; background-color: #141f3d;">Submit</button>
+                <button type="submit" class="btn" id="submitData" style="font-family:NunitoLight; color: white; background-color: #141f3d;">Submit</button>
             </div>
             <div class="col-5" style="height:600px; overflow-y:scroll; margin:0 auto;">
                 <div id="comments">

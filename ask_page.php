@@ -1,3 +1,10 @@
+<?php
+session_start();
+if (!isset($_SESSION["login"])) {
+  header("Location: home.php");
+  exit;
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -22,7 +29,8 @@
       var tag;
       $("#tagButton").click(function() {
         tag = $("#tagName").val();
-        alert("sukses tmbh tag");
+        alert("Sukses menambahkan tag");
+        $("#tagModal").modal('hide');
       });
 
       $("#submitData").click(function() {
@@ -40,6 +48,7 @@
             },
             success: function(data) {
               alert("Sukses membuat pertanyaan");
+              window.location.href = "home.php";
             }
           });
         } else {
