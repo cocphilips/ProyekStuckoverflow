@@ -128,7 +128,7 @@ session_start();
 
   <?php include "navbar.php"; ?>
 
-  <div id="container-fluid">
+  <div id="container-fluid" style="min-height: 100%;">
     <div class="row">
       <div class="col-sm-12 col-md-6 offset-md-3 mt-md-5">
         <form id="searchBarForm">
@@ -136,7 +136,7 @@ session_start();
           <div class="input-group">
             <input type="text" id="question_query" class="form-control">
             <span class="input-group-btn">
-              <button class="btn btn-primary" onclick="search(0)">Search</button>
+              <button class="btn btn-primary btn-md" onclick="search(0)">Search</button>
             </span>
           </div><!-- /input-group -->
 
@@ -149,8 +149,10 @@ session_start();
 
       </div>
     </div>
+
   </div>
   <?php include "footer.php"; ?>
+  
 </body>
 
 <script type="text/javascript">
