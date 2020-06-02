@@ -90,7 +90,7 @@ if (!isset($_SESSION["login"])) {
   </div>
 
 
-  <div id="container">
+  <div id="container" style="min-height: 100%;">
     <div id="header"></div>
     <div id="body">
       <!-- Jumbotron -->
@@ -177,7 +177,7 @@ if (!isset($_SESSION["login"])) {
   </div> <!-- end container -->
 
 
-
+<?php include "footer.php"; ?>
 
 </body>
 

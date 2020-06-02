@@ -87,11 +87,25 @@ if(isset($_POST["requestType"])){
 			$output.='
 			<div class="row">
 				<div class="col-sm-12 col-md-6 offset-md-3">
-				<a href="answerPage.php?id='.$row["id"].'" style="text-decoration:none; color:black;">
-	        		<p class="question-title"><b>'.$row["topik"].'</b></p>
-	        		<p class="question-title"><i>'.$row["isi"].'</i></p>
-	        		<p class="question-title"><small>Asked at '.$row["waktu"].' by '.$name.'</small></p>
-	        	</a>
+					<div class="card text-center" style="width:60%; margin: 0 auto; margin-top: 20px;">
+						<div class="card-header">
+							<a href="answerPage.php?id='.$row["id"].'" style="text-decoration:none; color:black;">
+				        		<h5 id="judultopik" style="cursor:pointer;font-family: NunitoLight; text-align:left; margin-top:15px; margin-left:15px;"><b>'.$row["topik"].'</b></h5>
+
+				        	</a>
+					    </div>
+					    <div class="card-body" style="font-size: 14px;font-family: fontCode;text-align: left; margin-left: 15px;">
+					    	<p>'.$row["isi"].'</p>
+					    </div>
+					    <div class="card-footer text-muted">
+				        	<img id="like" src="img/like.png">
+				        	<span id="totallike">'.$row["likes"].'</span>
+				        	<img id="answer" src="img/answers.png">
+				        	<span id="totalanswer">'.$row["answerscount"].'</span>
+				        	<p style="    text-align: right; font-family: fontCode; font-size: 10px; margin-right: 5px; margin-bottom: 10px;">Asked by <b>'.$name.'</b> '.$row["waktu"].'</p>
+				        </div>
+					</div>
+				
 	        		<hr>
 	        	</div>
         	</div>
