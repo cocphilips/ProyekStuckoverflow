@@ -85,8 +85,8 @@ nav>div {
 #footer {
   height: 60px;
   background: #141f3d;
-
 }
+
 .card-title {
   font-family: NunitoBold;
   font-size: 24px;
@@ -169,6 +169,13 @@ nav>div {
   margin-top: 2px;
 }
 
+#gambarlike2 {
+  float: left;
+  width: 20px;
+  height: 20px;
+  margin-top: 2px;
+}
+
 @media (min-width: 992px) {
   .card-title {
     font-size: 32px;
@@ -234,6 +241,12 @@ nav>div {
   }
 
   #gambarlike {
+    width: 20px;
+    height: 20px;
+    margin-top: 2px;
+  }
+
+  #gambarlike2 {
     width: 20px;
     height: 20px;
     margin-top: 2px;

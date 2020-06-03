@@ -22,9 +22,10 @@ if (!isset($_SESSION["login"])) {
 
     <script type="text/javascript">
         //getAllComment
-        var id_question = <?php echo $_GET["id"]; ?>;
+        var id_user = <?php echo $_SESSION["id"]; ?>;
 
         function refreshComment() {
+            var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
                 type: 'GET',
                 url: 'showComment.php',
@@ -44,9 +45,21 @@ if (!isset($_SESSION["login"])) {
                         <?php
                         require_once("connect.php");
                         $id_question = $_GET["id"];
+                        $id_user = $_SESSION["id"];
+                        $id_answers = intval('<script>document.writeln(idAnswer);</script>');
                         $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
                         $hasil = $kueri->fetch_assoc();
+                        $likeAnswer = mysqli_query($con, "SELECT * FROM likes_answer WHERE id_answers='" . $id_answers . "' AND id_users='" . $id_user . "'");
+                        $res = $likeAnswer->num_rows;
                         ?>
+                        var cek = <?php echo $res ?>;
+                        if (cek == 0) {
+                            str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='likeAnswerClick(\"" + idAnswer + "\")' src='img/before.png' style='cursor:pointer;'>";
+                        } else {
+                            str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='unlikeAnswerClick(\"" + idAnswer + "\")' src='img/after.png' style='cursor:pointer;'>";
+                        }
+                        str += "<span id='jumlahlikeanswer'></span>";
+
                         var benar = <?php echo $hasil["valid"] ?>;
                         if (benar == idAnswer) {
                             str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctAfter.png' style='cursor:pointer;'>";
@@ -61,6 +74,7 @@ if (!isset($_SESSION["login"])) {
         }
 
         function refreshLike() {
+            var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
                 type: 'GET',
                 url: 'showLike.php',
@@ -79,9 +93,27 @@ if (!isset($_SESSION["login"])) {
             });
         }
 
+        function refreshAnswerLike(idAnswer) {
+            $.ajax({
+                type: 'GET',
+                url: 'showLikeAnswer.php',
+                datatype: "json",
+                data: {
+                    idAnswer: idAnswer
+                },
+                success: function(result) {
+                    var data = JSON.parse(result);
+                    var d = data[0];
+                    var dataDiv = $("#jumlahlikeanswer");
+                    var str = "";
+                    str += d.likes;
+                    dataDiv.html(str);
+                }
+            });
+        }
+
         function correctClick(idAnswer) {
-            alert("Masok");
-            var id_user = <?php echo $_SESSION["id"]; ?>;
+            var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
                 type: 'POST',
                 url: 'addValid.php',
@@ -99,7 +131,7 @@ if (!isset($_SESSION["login"])) {
         }
 
         function likeClick() {
-            var id_user = <?php echo $_SESSION["id"]; ?>;
+            var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
                 type: 'POST',
                 url: 'addLike.php',
@@ -116,8 +148,9 @@ if (!isset($_SESSION["login"])) {
             });
         }
 
+
         function unlikeClick() {
-            var id_user = <?php echo $_SESSION["id"]; ?>;
+            var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
                 type: 'POST',
                 url: 'removeLike.php',
@@ -130,6 +163,40 @@ if (!isset($_SESSION["login"])) {
                     document.getElementById("gambarlike").src = "img/before.png";
                     document.getElementById("gambarlike").setAttribute("onclick", "javascript:likeClick()");
                     refreshLike();
+                }
+            });
+        }
+
+        function likeAnswerClick(idAnswer) {
+            $.ajax({
+                type: 'POST',
+                url: 'addLikeAnswer.php',
+                datatype: "json",
+                data: {
+                    idAnswer: idAnswer,
+                    id_user: id_user
+                },
+                success: function(data) {
+                    document.getElementsByClassName(idAnswer).src = "img/after.png";
+                    document.getElementsByClassName(idAnswer).setAttribute("onclick", "javascript:unlikeAnswerClick()");
+                    refreshAnswerLike(idAnswer);
+                }
+            });
+        }
+
+        function unlikeAnswerClick(idAnswer) {
+            $.ajax({
+                type: 'POST',
+                url: 'removeLikeAnswer.php',
+                datatype: "json",
+                data: {
+                    idAnswer: idAnswer,
+                    id_user: id_user
+                },
+                success: function(data) {
+                    document.getElementById("gambarlike2").src = "img/before.png";
+                    document.getElementById("gambarlike2").setAttribute("onclick", "javascript:likeAnswerClick()");
+                    refreshAnswerLike(idAnswer);
                 }
             });
         }
