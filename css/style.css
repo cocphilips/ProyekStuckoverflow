@@ -56,6 +56,19 @@ nav>div {
   font-size: 34px;
 }
 
+.text4 {
+  color: white;
+  font-size: 60px;
+  margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: type2 3s steps(32.5);
+  border-right: 4px solid white;
+  width: 32.5ch;
+  font-family: NunitoBold;
+  font-size: 34px;
+}
+
 @keyframes type {
   0% {
     width: 0ch;
@@ -63,6 +76,16 @@ nav>div {
 
   100% {
     width: 23ch;
+  }
+}
+
+@keyframes type2 {
+  0% {
+    width: 0ch;
+  }
+
+  100% {
+    width: 32.5ch;
   }
 }
 

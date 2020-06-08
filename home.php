@@ -20,6 +20,10 @@ session_start();
   <script type="text/javascript">
     $(document).ready(function() {
 
+      $("#showQuestion").click(function(){
+        window.location.href = "showMyQuestionPage.php";
+      });
+
       $("#signupButton").click(function() {
         var name = $("#s_disname").val();
         var email = $("#s_email").val();
@@ -144,6 +148,7 @@ session_start();
     <div class="container">
       <h1 class="text3">See others stuckness as well.</h1>
       <p class="text2" style="text-align: left;">Learn and grow together</p>
+      <button class="btn btn-danger" id="showQuestion">Show My Question</button>
     </div>
   </div>
   <div class="container-fluid" id="questions" style="margin-bottom: 20px;">
