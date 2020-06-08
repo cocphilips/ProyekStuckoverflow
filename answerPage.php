@@ -61,9 +61,9 @@ if (!isset($_SESSION["login"])) {
                         str += "<span id='jumlahlikeanswer'></span>";
 
                         var benar = <?php echo $hasil["valid"] ?>;
-                        if (benar == idAnswer) {
-                            str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctAfter.png' style='cursor:pointer;'>";
-                        } else {
+                        if (idAnswer == benar) {
+                            str += "<img class='gambarcorrect' id='" + idAnswer + "' src='img/correctAfter.png'>";
+                        } else if (benar == 0) {
                             str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
                         }
                         str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
@@ -125,6 +125,7 @@ if (!isset($_SESSION["login"])) {
                 },
                 success: function(data) {
                     alert(data);
+                    refreshComment();
                     document.getElementById(idAnswer).src = "img/correctAfter.png";
                 }
             });
@@ -267,8 +268,6 @@ if (!isset($_SESSION["login"])) {
                         }
                         echo "</div>";
                     }
-                } else {
-                    echo "kosong";
                 }
                 ?>
                 <div class="form-group" style="margin-top: 30px;">

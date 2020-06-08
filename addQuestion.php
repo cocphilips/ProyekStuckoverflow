@@ -29,5 +29,5 @@ if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
 		}
 	}
 } else {
-	echo "gagal";
+	echo "Gagal membuat pertanyaan";
 }

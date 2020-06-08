@@ -64,7 +64,7 @@ if (!isset($_SESSION["login"])) {
   </script>
 </head>
 
-<body style="background-color: #d4cfcd;">
+<body>
   <?php include "navbar.php"; ?>
 
 
@@ -90,81 +90,73 @@ if (!isset($_SESSION["login"])) {
   </div>
 
 
-  <div id="container" style="min-height: 100%;">
-    <div id="header"></div>
-    <div id="body">
-      <!-- Jumbotron -->
-      <div class="jumbotron jumbotron-fluid" style="height: 500px; background-image: url(img/jumbotron.png); background-position: center; background-size: cover;">
-        <div class="container">
-          <h1 class="text1" style="text-align: center; font-family: NunitoBold;">Solving your stuckness.</h1>
-          <p class="text2" style="text-align: center; font-family: fontCode;">Ask and answer questions online with code
-            lovers!</p>
+  <!-- Jumbotron -->
+  <div class="jumbotron jumbotron-fluid" style="height: 300px; background-color:#141f3d;">
+    <div class="container">
+      <h1 class="text5">Time to tell your stuckness</h1>
+      <p class="text2" style="text-align: center; font-family: fontCode;">Our community ready to help you!</p>
+    </div>
+  </div>
+
+  <div class="container-bwh" style=" width: 80%; margin:0 auto;">
+    <div class="row">
+      <div class="col-lg-8">
+        <h1 style="font-family: NunitoLight; font-weight:800;">Ask your question</h1>
+        <div class="form-group">
+          <label for="judul" style="font-family: NunitoLight;">Question Title :</label>
+          <input type="text" style="font-family: fontCode;" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
         </div>
+        <div class="form-group">
+          <label for="isi" style="font-family: NunitoLight;">Your Question :</label>
+          <textarea class="form-control" style="font-family: fontCode;" id="pertanyaan" rows="5" placeholder="Min 10 words"></textarea>
+        </div>
+        <button class="btn" onclick="addTag()" style="font-family: NunitoLight; color: white; background-color: #141f3d;">Add Tag</button>
+        <button type="submit" class="btn" id="submitData" style="font-family: NunitoLight; color: white; background-color: #141f3d;">Submit</button>
       </div>
-      <div class="container-bwh" style=" width: 80%; margin:0 auto;">
-
-        <div class="row">
-          <div class="col-8">
-
-
-            <h1>Ask your question</h1>
-            <div class="form-group">
-              <label for="judul">Question Title :</label>
-              <input type="text" class="form-control" placeholder="Ex: Inheritance in OOP" id="judul">
+      <div class="col-lg-4" style="float:right; margin-top:30px;">
+        <div id="accordion">
+          <div class="card">
+            <div class="card-header" id="headingOne">
+              <h5 class="mb-0">
+                <button class="btn btn-link" style="font-family: NunitoLight;" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
+                  Step 1 : Summarize the problem
+                </button>
+              </h5>
             </div>
-            <div class="form-group">
-              <label for="isi">Your Question :</label>
-              <textarea class="form-control" id="pertanyaan" rows="5" placeholder="Min 10 words"></textarea>
+
+            <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
+              <div class="card-body" style="font-family: fontCode;">
+                <p>Describe your goal and expectation</p>
+                <p>Describe the problem or error</p>
+                <p>Include any error message</p>
+              </div>
             </div>
-            <button class="btn btn-primary" onclick="addTag()">Add Tag</button>
-            <button type="submit" class="btn btn-primary" id="submitData">Submit</button>
           </div>
-          <div class="col-4" style="float:right;">
-            <div id="accordion">
-              <div class="card">
-                <div class="card-header" id="headingOne">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link" data-toggle="collapse" data-target="#collapseOne" aria-expanded="true" aria-controls="collapseOne">
-                      Step 1 : Summarize the problem
-                    </button>
-                  </h5>
-                </div>
-
-                <div id="collapseOne" class="collapse show" aria-labelledby="headingOne" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>Describe your goal and expectation</p>
-                    <p>Describe the problem or error</p>
-                    <p>Include any error message</p>
-                  </div>
-                </div>
+          <div class="card">
+            <div class="card-header" id="headingTwo">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" style="font-family: NunitoLight;" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
+                  Step 2 : Describe what you've tried
+                </button>
+              </h5>
+            </div>
+            <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
+              <div class="card-body" style="font-family: fontCode;">
+                <p>Show what you've tried and why it didn't meet your expectations</p>
               </div>
-              <div class="card">
-                <div class="card-header" id="headingTwo">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseTwo" aria-expanded="false" aria-controls="collapseTwo">
-                      Step 2 : Describe what you've tried
-                    </button>
-                  </h5>
-                </div>
-                <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>Show what you've tried and why it didn't meet your expectations</p>
-                  </div>
-                </div>
-              </div>
-              <div class="card">
-                <div class="card-header" id="headingThree">
-                  <h5 class="mb-0">
-                    <button class="btn btn-link collapsed" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
-                      Step 3 : Show some code
-                    </button>
-                  </h5>
-                </div>
-                <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
-                  <div class="card-body">
-                    <p>Share some of your code that others need to reproduce</p>
-                  </div>
-                </div>
+            </div>
+          </div>
+          <div class="card">
+            <div class="card-header" id="headingThree">
+              <h5 class="mb-0">
+                <button class="btn btn-link collapsed" style="font-family: NunitoLight;" data-toggle="collapse" data-target="#collapseThree" aria-expanded="false" aria-controls="collapseThree">
+                  Step 3 : Show some code
+                </button>
+              </h5>
+            </div>
+            <div id="collapseThree" class="collapse" aria-labelledby="headingThree" data-parent="#accordion">
+              <div class="card-body" style="font-family: fontCode;">
+                <p>Share some of your code that others need to reproduce</p>
               </div>
             </div>
           </div>
@@ -172,12 +164,13 @@ if (!isset($_SESSION["login"])) {
       </div>
     </div>
   </div>
+  </div>
+  </div>
 
 
-  </div> <!-- end container -->
 
 
-<?php include "footer.php"; ?>
+  <?php include "footer.php"; ?>
 
 </body>
 

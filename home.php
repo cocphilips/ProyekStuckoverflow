@@ -20,7 +20,7 @@ session_start();
   <script type="text/javascript">
     $(document).ready(function() {
 
-      $("#showQuestion").click(function(){
+      $("#showQuestion").click(function() {
         window.location.href = "showMyQuestionPage.php";
       });
 
@@ -144,13 +144,20 @@ session_start();
     </div>
   </div>
 
+  <!-- Jumbotron -->
   <div class=" jumbotron jumbotron-fluid" id="banner" style="background-color: #141f3d; background-image:url(img/home.png);">
     <div class="container">
       <h1 class="text3">See others stuckness as well.</h1>
       <p class="text2" style="text-align: left;">Learn and grow together</p>
-      <button class="btn btn-danger" id="showQuestion">Show My Question</button>
+      <?php
+      if (isset($_SESSION["login"])) {
+        echo '<button class="btn btn-danger" style="font-family:NunitoLight;" id="showQuestion">Show My Question</button>';
+      }
+      ?>
     </div>
   </div>
+
+  <!-- listQuestion -->
   <div class="container-fluid" id="questions" style="margin-bottom: 20px;">
     <?php
     require_once("connect.php");
