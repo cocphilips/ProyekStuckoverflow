@@ -22,6 +22,22 @@ session_start();
       var thisID = id;
       window.location.href = "answerPage.php?id=" + thisID;
     }
+
+    function deleteQuestion(id) {
+      var thisID = id;
+      $.ajax({
+        type: 'POST',
+        url: 'deleteQuestion.php',
+        datatype: "json",
+        data: {
+          thisID: thisID
+        },
+        success: function(result) {
+          alert(result);
+          window.location.href = "showMyQuestionPage.php";
+        }
+      });
+    }
   </script>
 </head>
 
@@ -46,7 +62,10 @@ session_start();
       while ($row = mysqli_fetch_assoc($q)) {
         echo "<div class='card text-center' style='width:60%; margin: 0 auto; margin-top: 20px;'>";
         echo "<div class='card-header'><h5 id='judultopik' style='cursor:pointer;font-family: NunitoLight; text-align:left; 
-        margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" . $row['id'] . "\")'><b>" . "Topik : " . $row['topik'] . "</b></h5></div>";
+        margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" . $row['id'] . "\")'><b>" . "Topik : " . $row['topik'] . "</b></h5>";
+        echo "<svg class='bi bi-archive-fill' onclick='deleteQuestion(\"" . $row['id'] . "\")' style='float: right; margin-top: -30px; cursor:pointer;' width='1em' height='1em' viewBox='0 0 16 16' fill='currentColor' xmlns='http://www.w3.org/2000/svg'>
+        <path fill-rule='evenodd' d='M12.643 15C13.979 15 15 13.845 15 12.5V5H1v7.5C1 13.845 2.021 15 3.357 15h9.286zM6 7a.5.5 0 0 0 0 1h4a.5.5 0 0 0 0-1H6zM.8 1a.8.8 0 0 0-.8.8V3a.8.8 0 0 0 .8.8h14.4A.8.8 0 0 0 16 3V1.8a.8.8 0 0 0-.8-.8H.8z'/>
+        </svg></div>";
         echo "<div class='card-body'>";
         $words = explode(" ", $row['isi']);
         echo "<p id='isitopik'>";
