@@ -40,33 +40,42 @@ if (!isset($_SESSION["login"])) {
                     for (var i = 0; i < data.length; i++) {
                         var d = data[i];
                         var idAnswer = d.id;
-                        str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
-                        str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
-                        <?php
-                        require_once("connect.php");
-                        $id_question = $_GET["id"];
-                        $id_user = $_SESSION["id"];
-                        $id_answers = intval('<script>document.writeln(idAnswer);</script>');
-                        $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
-                        $hasil = $kueri->fetch_assoc();
-                        $likeAnswer = mysqli_query($con, "SELECT * FROM likes_answer WHERE id_answers='" . $id_answers . "' AND id_users='" . $id_user . "'");
-                        $res = $likeAnswer->num_rows;
-                        ?>
-                        var cek = <?php echo $res ?>;
-                        if (cek == 0) {
-                            str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='likeAnswerClick(\"" + idAnswer + "\")' src='img/before.png' style='cursor:pointer;'>";
-                        } else {
-                            str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='unlikeAnswerClick(\"" + idAnswer + "\")' src='img/after.png' style='cursor:pointer;'>";
-                        }
-                        str += "<span id='jumlahlikeanswer'></span>";
+                        alert(idAnswer);
+                        $.ajax({
+                            type: 'POST',
+                            url: 'likeAnswer.php',
+                            datatype: "json",
+                            data: {
+                                idAnswer: idAnswer
+                            },
+                            success: function(res) {
+                                alert("masuk" + idAnswer);
+                                var cek = JSON.parse(res);
+                                str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
+                                str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
+                                <?php
+                                require_once("connect.php");
+                                $id_question = $_GET["id"];
+                                $id_user = $_SESSION["id"];
+                                $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
+                                $hasil = $kueri->fetch_assoc();
+                                ?>
+                                if (cek == 0) {
+                                    str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='likeAnswerClick(\"" + idAnswer + "\")' src='img/before.png' style='cursor:pointer;'>";
+                                } else {
+                                    str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='unlikeAnswerClick(\"" + idAnswer + "\")' src='img/after.png' style='cursor:pointer;'>";
+                                }
+                                str += "<span id='jumlahlikeanswer'></span>";
 
-                        var benar = <?php echo $hasil["valid"] ?>;
-                        if (idAnswer == benar) {
-                            str += "<img class='gambarcorrect' id='" + idAnswer + "' src='img/correctAfter.png'>";
-                        } else if (benar == 0) {
-                            str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
-                        }
-                        str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
+                                var benar = <?php echo $hasil["valid"] ?>;
+                                if (idAnswer == benar) {
+                                    str += "<img class='gambarcorrect' id='" + idAnswer + "' src='img/correctAfter.png'>";
+                                } else if (benar == 0) {
+                                    str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
+                                }
+                                str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
+                            }
+                        });
                     }
                     dataDiv.html(str);
                 }

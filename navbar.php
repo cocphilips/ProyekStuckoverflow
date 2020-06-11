@@ -28,7 +28,7 @@
         }
         ?>
        <li class="nav-item mr-3">
-         <a class="nav-link" style="cursor: pointer;" href="aboutus.html">About Us </a>
+         <a class="nav-link" style="cursor: pointer;" href="aboutusPage.php">About Us </a>
        </li>
        <li class="nav-item">
          <a class="nav-link" style="cursor: pointer;" href="explore.php">Explore</a>
