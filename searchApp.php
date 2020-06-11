@@ -1,6 +1,35 @@
 <?php
 session_start();
 include "connect.php";
+/**
+ * 
+ */
+class Question{
+	public $id;
+	public $topik;
+	public $isi;
+	public $likes;
+	public $waktu;
+	public $answerscount;
+	public $id_users;
+	public $valids;
+	public $tags =[];
+	function __construct($id,$topik,$isi,$likes,$waktu,$answerscount,$id_users,$valids) {
+    	$this->id = $id;
+    	$this->topik=$topik;
+    	$this->isi=$isi;
+    	$this->likes=$waktu;
+    	$this->answerscount=$answerscount;
+    	$this->id_users=$id_users;
+    	$this->valids=$valids;
+  	}
+  	function pushTags($tag){
+  		$this->tags.push($tag);
+  	}
+  	function printData(){
+  		return "";
+  	}
+}
 if(isset($_POST["requestType"])){
 	$req = $con->real_escape_string($_POST["requestType"]);
 	$output = "";
