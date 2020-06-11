@@ -35,12 +35,14 @@ if (!isset($_SESSION["login"])) {
                 },
                 success: function(result) {
                     var data = JSON.parse(result);
+                    console.log(data);
                     var dataDiv = $("#comments");
                     var str = "";
                     for (var i = 0; i < data.length; i++) {
                         var d = data[i];
+                        console.log(d);
                         var idAnswer = d.id;
-                        alert(idAnswer);
+                        // alert(idAnswer);
                         $.ajax({
                             type: 'POST',
                             url: 'likeAnswer.php',
@@ -49,8 +51,12 @@ if (!isset($_SESSION["login"])) {
                                 idAnswer: idAnswer
                             },
                             success: function(res) {
-                                alert("masuk" + idAnswer);
+                                // alert("masuk" + idAnswer);
+                                console.log("success");
+                                console.log(res);
                                 var cek = JSON.parse(res);
+                                console.log(cek);
+
                                 str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
                                 str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
                                 <?php

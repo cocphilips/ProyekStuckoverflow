@@ -158,7 +158,7 @@ session_start();
   </div>
 
   <!-- listQuestion -->
-  <div class="container-fluid" id="questions" style="margin-bottom: 20px;">
+  <div class="container-fluid" id="questions" style="margin-bottom: 20px; min-height: 100%;">
     <?php
     require_once("connect.php");
 
