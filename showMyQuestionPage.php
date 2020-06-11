@@ -18,7 +18,6 @@ session_start();
   </script>
 
   <script type="text/javascript">
-    
     function seeQuestion(id) {
       var thisID = id;
       window.location.href = "answerPage.php?id=" + thisID;
@@ -39,8 +38,8 @@ session_start();
         }
       });
     }
-    
-    function showQuestion(){
+
+    function showQuestion() {
       var id_user = <?php echo $_SESSION["id"]; ?>;
       $.ajax({
         type: 'POST',
@@ -53,7 +52,7 @@ session_start();
           var data = JSON.parse(result);
           var dataDiv = $("#pertanyaan");
           var str = "";
-          for(var i = 0 ; i < data.length; i++){
+          for (var i = 0; i < data.length; i++) {
             var d = data[i];
             str += "<div class='card text-center' style='width:60%; margin: 0 auto; margin-top: 20px;'>";
             str += "<div class='card-header'><h5 id='judultopik' style='cursor:pointer;font-family: NunitoLight; text-align:left; margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" + d.id + "\")'><b>Topik : " + d.topik + "</b></h5>";
@@ -62,7 +61,7 @@ session_start();
             str += "<p id='isitopik'>";
             var kata = d.isi;
             var hasil = kata.split(" ");
-            for(var j = 0; j< 10; j++){
+            for (var j = 0; j < 10; j++) {
               str += hasil[j];
             }
             str += "</p></div>";
@@ -78,10 +77,9 @@ session_start();
       });
     }
 
-    $(document).ready(function(){
+    $(document).ready(function() {
       showQuestion();
     });
-    
   </script>
 </head>
 
@@ -97,9 +95,9 @@ session_start();
       <p class="text2" style="text-align: left;">Learn and grow together</p>
     </div>
   </div>
-  <div class="container-fluid" id="questions" style="margin-bottom: 20px;">
+  <div class="container-fluid" id="questions" style="margin-bottom: 20px; min-height: 100%;">
     <div id="pertanyaan">
-    
+
     </div>
   </div>
   <?php include "footer.php"; ?>

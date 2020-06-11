@@ -35,53 +35,34 @@ if (!isset($_SESSION["login"])) {
                 },
                 success: function(result) {
                     var data = JSON.parse(result);
-                    console.log(data);
                     var dataDiv = $("#comments");
                     var str = "";
                     for (var i = 0; i < data.length; i++) {
                         var d = data[i];
-                        console.log(d);
                         var idAnswer = d.id;
-                        // alert(idAnswer);
-                        $.ajax({
-                            type: 'POST',
-                            url: 'likeAnswer.php',
-                            datatype: "json",
-                            data: {
-                                idAnswer: idAnswer
-                            },
-                            success: function(res) {
-                                // alert("masuk" + idAnswer);
-                                console.log("success");
-                                console.log(res);
-                                var cek = JSON.parse(res);
-                                console.log(cek);
+                        str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
+                        str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
+                        <?php
+                        require("connect.php");
+                        $id_question = $_GET["id"];
+                        $id_user = $_SESSION["id"];
+                        $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
+                        $hasil = $kueri->fetch_assoc();
+                        ?>
+                        // if (cek == 0) {
+                        //     str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='likeAnswerClick(\"" + idAnswer + "\")' src='img/before.png' style='cursor:pointer;'>";
+                        // } else {
+                        //     str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='unlikeAnswerClick(\"" + idAnswer + "\")' src='img/after.png' style='cursor:pointer;'>";
+                        // }
+                        // str += "<span id='jumlahlikeanswer'></span>";
 
-                                str += "<div class='content' style='padding: 15px;background-color: aliceblue; border-bottom: 1px solid #141f3d; margin-bottom: 20px;'><h6 style='font-family:NunitoBold;'>" + d.displayname + "</h6>";
-                                str += "<p style='font-family: fontCode;'>" + d.waktu + "</p>";
-                                <?php
-                                require_once("connect.php");
-                                $id_question = $_GET["id"];
-                                $id_user = $_SESSION["id"];
-                                $kueri = mysqli_query($con, "SELECT valid FROM questions WHERE id='" . $id_question . "'");
-                                $hasil = $kueri->fetch_assoc();
-                                ?>
-                                if (cek == 0) {
-                                    str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='likeAnswerClick(\"" + idAnswer + "\")' src='img/before.png' style='cursor:pointer;'>";
-                                } else {
-                                    str += "<img id='gambarlike2' class='" + idAnswer + "' onclick='unlikeAnswerClick(\"" + idAnswer + "\")' src='img/after.png' style='cursor:pointer;'>";
-                                }
-                                str += "<span id='jumlahlikeanswer'></span>";
-
-                                var benar = <?php echo $hasil["valid"] ?>;
-                                if (idAnswer == benar) {
-                                    str += "<img class='gambarcorrect' id='" + idAnswer + "' src='img/correctAfter.png'>";
-                                } else if (benar == 0) {
-                                    str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
-                                }
-                                str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
-                            }
-                        });
+                        var benar = <?php echo $hasil["valid"] ?>;
+                        if (idAnswer == benar) {
+                            str += "<img class='gambarcorrect' id='" + idAnswer + "' src='img/correctAfter.png'>";
+                        } else if (benar == 0) {
+                            str += "<img class='gambarcorrect' id='" + idAnswer + "' onclick='correctClick(\"" + idAnswer + "\")' src='img/correctBefore.png' style='cursor:pointer;'>";
+                        }
+                        str += "<p style='text-align : justify; font-family: fontCode;'>" + d.isi + "</p></div>";
                     }
                     dataDiv.html(str);
                 }
@@ -108,25 +89,6 @@ if (!isset($_SESSION["login"])) {
             });
         }
 
-        function refreshAnswerLike(idAnswer) {
-            $.ajax({
-                type: 'GET',
-                url: 'showLikeAnswer.php',
-                datatype: "json",
-                data: {
-                    idAnswer: idAnswer
-                },
-                success: function(result) {
-                    var data = JSON.parse(result);
-                    var d = data[0];
-                    var dataDiv = $("#jumlahlikeanswer");
-                    var str = "";
-                    str += d.likes;
-                    dataDiv.html(str);
-                }
-            });
-        }
-
         function correctClick(idAnswer) {
             var id_question = <?php echo $_GET["id"]; ?>;
             $.ajax({
@@ -140,8 +102,7 @@ if (!isset($_SESSION["login"])) {
                 },
                 success: function(data) {
                     alert(data);
-                    refreshComment();
-                    document.getElementById(idAnswer).src = "img/correctAfter.png";
+                    window.location.href = "answerPage.php?id=" + id_question;
                 }
             });
         }
@@ -183,47 +144,13 @@ if (!isset($_SESSION["login"])) {
             });
         }
 
-        function likeAnswerClick(idAnswer) {
-            $.ajax({
-                type: 'POST',
-                url: 'addLikeAnswer.php',
-                datatype: "json",
-                data: {
-                    idAnswer: idAnswer,
-                    id_user: id_user
-                },
-                success: function(data) {
-                    document.getElementsByClassName(idAnswer).src = "img/after.png";
-                    document.getElementsByClassName(idAnswer).setAttribute("onclick", "javascript:unlikeAnswerClick()");
-                    refreshAnswerLike(idAnswer);
-                }
-            });
-        }
-
-        function unlikeAnswerClick(idAnswer) {
-            $.ajax({
-                type: 'POST',
-                url: 'removeLikeAnswer.php',
-                datatype: "json",
-                data: {
-                    idAnswer: idAnswer,
-                    id_user: id_user
-                },
-                success: function(data) {
-                    document.getElementById("gambarlike2").src = "img/before.png";
-                    document.getElementById("gambarlike2").setAttribute("onclick", "javascript:likeAnswerClick()");
-                    refreshAnswerLike(idAnswer);
-                }
-            });
-        }
-
         $(document).ready(function() {
             refreshComment();
             refreshLike();
             $("#submitData").click(function() {
                 var answer = $("#jawab").val();
                 var id_user = <?php echo $_SESSION["id"]; ?>;
-
+                var id_question = <?php echo $_GET["id"]; ?>;
                 $.ajax({
                     type: 'POST',
                     url: 'addAnswer.php',
@@ -287,7 +214,7 @@ if (!isset($_SESSION["login"])) {
                 ?>
                 <div class="form-group" style="margin-top: 30px;">
                     <label style='font-family: NunitoLight;' for="jawab">Answer :</label>
-                    <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Min 10 words"></textarea>
+                    <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Write your answers.."></textarea>
                 </div>
                 <button type="submit" class="btn" id="submitData" style="font-family:NunitoLight; color: white; background-color: #141f3d;">Submit</button>
             </div>
