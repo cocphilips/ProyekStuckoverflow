@@ -4,6 +4,7 @@ include "connect.php";
 /**
  * 
  */
+$questionList=[];
 class Question{
 	public $id;
 	public $topik;
@@ -11,17 +12,18 @@ class Question{
 	public $likes;
 	public $waktu;
 	public $answerscount;
-	public $id_users;
+	public $displayname;
 	public $valids;
 	public $tags =[];
-	function __construct($id,$topik,$isi,$likes,$waktu,$answerscount,$id_users,$valids) {
+	function __construct($id,$topik,$isi,$likes,$waktu,$answerscount,$displayname) {
     	$this->id = $id;
     	$this->topik=$topik;
     	$this->isi=$isi;
-    	$this->likes=$waktu;
+    	$this->likes=$likes;
+    	$this->waktu=$waktu;
     	$this->answerscount=$answerscount;
-    	$this->id_users=$id_users;
-    	$this->valids=$valids;
+    	$this->displayname=$displayname;
+    	// $this->valids=$valids;
   	}
   	function pushTags($tag){
   		$this->tags.push($tag);
@@ -68,7 +70,7 @@ if(isset($_POST["requestType"])){
 		$word = $con->real_escape_string($_POST["query"]);
 		$page = $con->real_escape_string($_POST["page"]);
 		$curNumPage= $page+1;
-		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC";
+		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC";
 		$resArr = $con->query($query);
 		$resCount = mysqli_num_rows($resArr);
 		$pageLast= $resCount/10;
@@ -100,10 +102,15 @@ if(isset($_POST["requestType"])){
 		';
 		$pageStart = $page*10;
 		$pageEnd = $page+10;
-		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC LIMIT ".$pageStart.",".$pageEnd."";
-		echo $query;
+		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC LIMIT ".$pageStart.",".$pageEnd."";
+		
+		// $query= "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%struktur%' OR LOWER(q.isi) LIKE '%struktur%' OR LOWER(u.displayname) LIKE '%struktur%' OR LOWER(t.namatag) LIKE '%struktur%' ORDER BY q.id DESC LIMIT 0,10";
+		// echo $query;
 		$resArr = $con->query($query);
 		while($row=mysqli_fetch_array($resArr)){
+			// $tempQuestionObj= new Question($row["id"], $row["topik"],$row["isi"],$row["likes"],$row["waktu"],$row["answerscount"],$row["displayname"]);
+			// array_push($questionList,$tempQuestionObj);
+
 			$output.='
 			<div class="row">
 				<div class="col-sm-12 col-md-6 offset-md-3">
