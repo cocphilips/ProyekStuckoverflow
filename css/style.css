@@ -68,6 +68,18 @@ nav>div {
   font-size: 24px;
 }
 
+.text6 {
+  color: white;
+  margin-bottom: 10px;
+  overflow: hidden;
+  white-space: nowrap;
+  animation: type3 3s steps(20);
+  border-right: 4px solid white;
+  width: 20.5ch;
+  font-family: NunitoBold;
+  font-size: 30px;
+}
+
 @keyframes type {
   0% {
     width: 0ch;
@@ -85,6 +97,16 @@ nav>div {
 
   100% {
     width: 32.5ch;
+  }
+}
+
+@keyframes type3 {
+  0% {
+    width: 0ch;
+  }
+
+  100% {
+    width: 20.5ch;
   }
 }
 
@@ -232,6 +254,10 @@ nav>div {
 
   .text5 {
     font-size: 52px;
+  }
+
+  .text6 {
+    font-size: 48px;
   }
 
   #banner {
