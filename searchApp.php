@@ -68,7 +68,7 @@ if(isset($_POST["requestType"])){
 		$word = $con->real_escape_string($_POST["query"]);
 		$page = $con->real_escape_string($_POST["page"]);
 		$curNumPage= $page+1;
-		$query = "SELECT * FROM questions WHERE topik LIKE '%".$word."%' OR isi LIKE '%".$word."%'";
+		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC";
 		$resArr = $con->query($query);
 		$resCount = mysqli_num_rows($resArr);
 		$pageLast= $resCount/10;
@@ -100,19 +100,10 @@ if(isset($_POST["requestType"])){
 		';
 		$pageStart = $page*10;
 		$pageEnd = $page+10;
-		$query = "SELECT * FROM questions WHERE topik LIKE '%".$word."%' OR isi LIKE '%".$word."%' ORDER BY id DESC LIMIT ".$pageStart.",".$pageEnd."";
+		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC LIMIT ".$pageStart.",".$pageEnd."";
+		echo $query;
 		$resArr = $con->query($query);
 		while($row=mysqli_fetch_array($resArr)){
-			$query2 = "SELECT * from users where id ='".$row["id_users"]."'";
-			$res2=$con->query($query2);
-			$name="";
-			if(mysqli_num_rows($res2)==0){
-				$name="<i>Uknown</i>";
-			}else{
-				$row2 = mysqli_fetch_array($res2);
-				$name=$row2["displayname"];
-			}
-			
 			$output.='
 			<div class="row">
 				<div class="col-sm-12 col-md-6 offset-md-3">
@@ -131,7 +122,7 @@ if(isset($_POST["requestType"])){
 				        	<span id="totallike">'.$row["likes"].'</span>
 				        	<img id="answer" src="img/answers.png">
 				        	<span id="totalanswer">'.$row["answerscount"].'</span>
-				        	<p style="    text-align: right; font-family: fontCode; font-size: 10px; margin-right: 5px; margin-bottom: 10px;">Asked by <b>'.$name.'</b> '.$row["waktu"].'</p>
+				        	<p style="    text-align: right; font-family: fontCode; font-size: 10px; margin-right: 5px; margin-bottom: 10px;">Asked by <b>'.$row["displayname"].'</b> '.$row["waktu"].'</p>
 				        </div>
 					</div>
 				
