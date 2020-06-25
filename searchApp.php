@@ -38,7 +38,7 @@ if(isset($_POST["requestType"])){
 	if($req=="search"){
 		$qry = $con->real_escape_string($_POST["query"]);
 		//USER
-		$qry1 = "SELECT * FROM users WHERE displayname LIKE '%".$qry."%' ORDER BY displayname ASC";
+		$qry1 = "SELECT DISTINCT * FROM users WHERE displayname LIKE '%".$qry."%' ORDER BY displayname ASC";
 		$res1 = $con->query($qry1);
 		$res1Count = mysqli_num_rows($res1);
 		$output .=
@@ -70,7 +70,7 @@ if(isset($_POST["requestType"])){
 		$word = $con->real_escape_string($_POST["query"]);
 		$page = $con->real_escape_string($_POST["page"]);
 		$curNumPage= $page+1;
-		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC";
+		$query = "SELECT DISTINCT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC";
 		$resArr = $con->query($query);
 		$resCount = mysqli_num_rows($resArr);
 		$pageLast= $resCount/10;
@@ -102,8 +102,8 @@ if(isset($_POST["requestType"])){
 		';
 		$pageStart = $page*10;
 		$pageEnd = $page+10;
-		$query = "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC LIMIT ".$pageStart.",".$pageEnd."";
-		
+		$query = "SELECT DISTINCT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%".strtolower($word)."%' OR LOWER(q.isi) LIKE '%".strtolower($word)."%' OR LOWER(u.displayname) LIKE '%".strtolower($word)."%' OR LOWER(t.namatag) LIKE '%".strtolower($word)."%' ORDER BY q.id DESC LIMIT ".$pageStart.",".$pageEnd."";
+		// echo $query;
 		// $query= "SELECT q.id,q.topik,q.isi,q.likes,q.answerscount,q.waktu,u.displayname, t.namatag FROM questions as q INNER JOIN users as u ON q.id_users = u.id LEFT JOIN tags as t ON t.id_questions=q.id WHERE LOWER(q.topik) LIKE '%struktur%' OR LOWER(q.isi) LIKE '%struktur%' OR LOWER(u.displayname) LIKE '%struktur%' OR LOWER(t.namatag) LIKE '%struktur%' ORDER BY q.id DESC LIMIT 0,10";
 		// echo $query;
 		$resArr = $con->query($query);
