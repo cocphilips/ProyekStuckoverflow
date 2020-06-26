@@ -167,14 +167,14 @@ session_start();
       while ($row = mysqli_fetch_assoc($q)) {
         echo "<div class='card text-center' style='width:60%; margin: 0 auto; margin-top: 20px;'>";
         echo "<div class='card-header'><h5 id='judultopik' style='cursor:pointer;font-family: NunitoLight; text-align:left; 
-        margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" . $row['id'] . "\")'><b>" . "Topik : " . $row['topik'] . "</b></h5></div>";
+        margin-top:15px; margin-left:15px;' onclick='seeQuestion(\"" . $row['id'] . "\")'><b>" . "Topic : " . $row['topik'] . "</b></h5></div>";
         echo "<div class='card-body'>";
         $words = explode(" ", $row['isi']);
-        echo "<p id='isitopik'>";
+        echo "<textarea style=' width: 100%; font-family: fontCode; margin-top: 10px; border:none;' readonly rows='2'>";
         for ($i = 0; $i < 10; $i++) {
           echo $words[$i] . " ";
         }
-        echo "</p></div>";
+        echo "</textarea></div>";
         $q2 = mysqli_query($con, "SELECT displayname FROM users WHERE id = '" . $row['id_users'] . "'");
         $row2 = mysqli_fetch_assoc($q2);
         echo "<div class='card-footer text-muted'>";

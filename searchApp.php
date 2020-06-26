@@ -10,7 +10,7 @@ class Question{
 	public $topik;
 	public $isi;
 	public $likes;
-	public $waktu;
+	public $waktu;	
 	public $answerscount;
 	public $displayname;
 	public $valids;
@@ -49,7 +49,6 @@ if(isset($_POST["requestType"])){
         	<hr>
         </div>
         </div>
-
 		';
 		while($row = mysqli_fetch_array($res1)){
 			$name = $row["displayname"];
@@ -60,7 +59,6 @@ if(isset($_POST["requestType"])){
 	        		<a href="profile.php?user='.$name.'" style="text-decoration:none; color:black;"><img src="img/qna.png" width="50" class="mr-3">'.$name.'</a>
 	        	</div>
         	</div>
-
 			';
 		}
 		echo $output;
@@ -84,7 +82,6 @@ if(isset($_POST["requestType"])){
 	        	<hr>
 	        </div>
 	        </div>
-
 			';
 			echo $output;
 			exit();
@@ -98,7 +95,6 @@ if(isset($_POST["requestType"])){
         	<hr>
         </div>
         </div>
-
 		';
 		$pageStart = $page*10;
 		$pageEnd = $page+10;
@@ -118,11 +114,10 @@ if(isset($_POST["requestType"])){
 						<div class="card-header">
 							<a href="answerPage.php?id='.$row["id"].'" style="text-decoration:none; color:black;">
 				        		<h5 id="judultopik" style="cursor:pointer;font-family: NunitoLight; text-align:left; margin-top:15px; margin-left:15px;"><b>'.$row["topik"].'</b></h5>
-
 				        	</a>
 					    </div>
 					    <div class="card-body" style="font-size: 14px;font-family: fontCode;text-align: left; margin-left: 15px;">
-					    	<p>'.$row["isi"].'</p>
+							<textarea style=" width: 100%; font-family: fontCode; margin-top: 10px; border:none;" readonly rows="2">'.$row["isi"].'</textarea>
 					    </div>
 					    <div class="card-footer text-muted">
 				        	<img id="like" src="img/like.png">
@@ -136,7 +131,6 @@ if(isset($_POST["requestType"])){
 	        		<hr>
 	        	</div>
         	</div>
-
 			';
 		}
 		$output.='
@@ -157,7 +151,6 @@ if(isset($_POST["requestType"])){
 		$output.='
 				</div>
         	</div>
-
 			';
 		echo $output;
 	}

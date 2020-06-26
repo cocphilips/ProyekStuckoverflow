@@ -162,6 +162,7 @@ if (!isset($_SESSION["login"])) {
                     },
                     success: function(data) {
                         alert("Berhasil menambahkan jawaban!");
+                        $("#jawab").html("");
                         refreshComment();
                     }
                 });
@@ -202,8 +203,9 @@ if (!isset($_SESSION["login"])) {
                             } else {
                                 echo "<img id='gambarlike' onclick='unlikeClick()' src='img/after.png' style='cursor:pointer;'>";
                             }
-                            echo "<span id='jumlahlike'></span>";
-                            echo "<p style='font-family: fontCode; margin-top: 20px;'>" . $row["isi"] . "</p>";
+                            echo "<span id='jumlahlike' style='float:left;'></span>";
+                            echo "<textarea style=' width: 100%; font-family: fontCode; margin-top: 50px;' readonly rows='10'>" . $row["isi"] . "</textarea>";
+
                         }
                         while ($row2 = mysqli_fetch_assoc($q2)) {
                             echo "<div style='width:50%;'><p style='cursor:pointer;font-size: 12px; margin-bottom: 5px;font-family: fontCode;'>" . $row2["namatag"] . "</p></div>";
@@ -212,7 +214,7 @@ if (!isset($_SESSION["login"])) {
                     }
                 }
                 ?>
-                <div class="form-group" style="margin-top: 30px;">
+                <div class="form-group" style="margin-top: 30px;" id="myForm">
                     <label style='font-family: NunitoLight;' for="jawab">Answer :</label>
                     <textarea style='font-family: fontCode;' class="form-control" id="jawab" rows="5" placeholder="Write your answers.."></textarea>
                 </div>

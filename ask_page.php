@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION["login"])) {
-  header("Location: home.php");
+  header("Location: landingPage.php");
   exit;
 }
 ?>
@@ -36,6 +36,7 @@ if (!isset($_SESSION["login"])) {
       $("#submitData").click(function() {
         var title = $("#judul").val();
         var isi = $("#pertanyaan").val();
+
         if (isi.split(" ").length >= 10) {
           $.ajax({
             type: 'POST',
@@ -47,7 +48,7 @@ if (!isset($_SESSION["login"])) {
               tag: tag
             },
             success: function(data) {
-              alert("Sukses membuat pertanyaan");
+              alert(data);
               window.location.href = "home.php";
             }
           });

@@ -148,7 +148,7 @@ if (isset($_SESSION["login"])) {
             your coding problem? You
             can ask to everyone here who
             loves coding!</p>
-          <a href="home.php" class="btn" style="background-color: #141f3d; color: white;">Ask Questions</a>
+          <a href="ask_page.php" class="btn" style="background-color: #141f3d; color: white;">Ask Questions</a>
         </div>
       </div>
       <div class="card text-center" style="border: 2px solid #141f3d;">

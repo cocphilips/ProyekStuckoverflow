@@ -9,7 +9,7 @@ if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
 		$tags = $_POST["tag"];
 		$tag = explode(",", $tags);
 	}
-
+	$isi = $con->real_escape_string($isi);
 	$cekJudul = mysqli_query($con, "SELECT * FROM questions WHERE topik='" . $title . "'");
 
 	if ($cekJudul->num_rows > 0) {
@@ -26,6 +26,12 @@ if (!empty($_POST["title"]) && !empty($_POST["isi"])) {
 			for ($x = 0; $x < count($tag); $x++) {
 				$q2 = mysqli_query($con, "INSERT INTO tags Values(0, " . $getID . ", '" . $tag[$x] . "')");
 			}
+		}
+		if($q){
+			echo "Berhasil";
+		}
+		else {
+			echo "Gagal";
 		}
 	}
 } else {

@@ -146,7 +146,7 @@ session_start();
           <img src="img/andrew.jpg" class="d-block w-100">
           <div class="carousel-caption">
             <h5>Andrew Firman S. - C14180029</h5>
-            <p>Silent worker.</p>
+            <p>Silent yet quick.</p>
             <a href="https://www.instagram.com/andrewfirmansap/"><img id='ig' src='img/instagram.png' width="30" height="30"></a>
           </div>
         </div>
@@ -154,7 +154,7 @@ session_start();
           <img src="img/philip.jpg" class="d-block w-100">
           <div class="carousel-caption">
             <h5>Philips Nogo R. - C14180040</h5>
-            <p>Stylist.</p>
+            <p>Definition of creativity.</p>
             <a href="https://www.instagram.com/philips_nr/"><img id='ig' src='img/instagram.png' width="30" height="30"></a>
           </div>
         </div>
