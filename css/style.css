@@ -73,9 +73,9 @@ nav>div {
   margin-bottom: 10px;
   overflow: hidden;
   white-space: nowrap;
-  animation: type3 3s steps(25);
+  animation: type3 3s steps(21);
   border-right: 4px solid white;
-  width: 25.5ch;
+  width: 20.5ch;
   font-family: NunitoBold;
   font-size: 30px;
 }
@@ -106,7 +106,7 @@ nav>div {
   }
 
   100% {
-    width: 25.5ch;
+    width: 20.5ch;
   }
 }
 
